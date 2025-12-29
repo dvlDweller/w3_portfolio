@@ -5,126 +5,589 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crypto Asta - Web3 Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500&display=swap');
-        body {
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        * {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top left, #0d1b1e, #000);
-            color: #fff;
+            padding: 0;
+            box-sizing: border-box;
         }
-        header {
-            text-align: center;
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e4e4e7;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #00e0ff;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 2rem;
         }
+        
+        /* Header Section */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 224, 255, 0.1);
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-image-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        
         header img {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             border: 4px solid #00e0ff;
-            box-shadow: 0 0 25px #00e0ff;
+            box-shadow: 0 0 40px rgba(0, 224, 255, 0.5), 0 0 80px rgba(0, 224, 255, 0.2);
+            transition: transform 0.3s ease;
         }
+        
+        header img:hover {
+            transform: scale(1.05);
+        }
+        
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #10b981;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
         h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            margin: 1rem 0 0.5rem;
-        }
-        h2 {
-            color: #00e0ff;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00e0ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        
         .tagline {
-            font-style: italic;
-            color: #ccc;
+            font-size: 1.1rem;
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+            font-weight: 300;
         }
-        main {
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+        }
+        
+        .icon {
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00e0ff, #0099cc);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 224, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 224, 255, 0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #00e0ff;
+            border: 2px solid #00e0ff;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 224, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00e0ff;
+            box-shadow: 0 8px 25px rgba(0, 224, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00e0ff;
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+        }
+        
+        /* Main Grid */
+        .main-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 2rem;
-            padding: 2rem;
-            max-width: 1000px;
-            margin: auto;
+            margin-bottom: 3rem;
         }
+        
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         section {
             background: rgba(255, 255, 255, 0.05);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            transition: all 0.3s ease;
         }
-        ul {
-            padding-left: 1.2rem;
+        
+        section:hover {
+            border-color: rgba(0, 224, 255, 0.4);
         }
-        a.button {
-            display: inline-block;
-            background: #00e0ff;
-            color: #000;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            font-weight: bold;
+        
+        h2 {
+            color: #00e0ff;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(180deg, #00e0ff, #7c3aed);
+            border-radius: 2px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            background: rgba(0, 224, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(0, 224, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .contact-item a {
+            color: #00e0ff;
             text-decoration: none;
-            margin-top: 1rem;
-            transition: 0.3s;
         }
-        a.button:hover {
-            background: #ff004c;
-            color: #fff;
-            box-shadow: 0 0 15px #ff004c;
+        
+        .contact-item a:hover {
+            text-decoration: underline;
         }
+        
+        .skill-tag {
+            display: inline-block;
+            background: rgba(0, 224, 255, 0.1);
+            color: #00e0ff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 224, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(0, 224, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .experience-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 224, 255, 0.03);
+            border-left: 3px solid #00e0ff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-item:hover {
+            background: rgba(0, 224, 255, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 224, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .experience-item:hover .project-logo {
+            border-color: #00e0ff;
+            box-shadow: 0 0 15px rgba(0, 224, 255, 0.4);
+        }
+        
+        .experience-item strong {
+            color: #00e0ff;
+            font-size: 1.1rem;
+        }
+        
+        .achievement-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(124, 58, 237, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: start;
+            gap: 0.8rem;
+        }
+        
+        .achievement-item::before {
+            content: '✓';
+            background: #10b981;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        
         footer {
             text-align: center;
             padding: 2rem;
-            font-size: 0.9rem;
-            color: #888;
+            color: #71717a;
+            border-top: 1px solid rgba(0, 224, 255, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 224, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00e0ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 224, 255, 0.3);
+        }
+        
+        .social-icon:hover {
+            background: #00e0ff;
+            color: #000;
+            transform: translateY(-3px);
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="kupal.jpg"/>
-        <h1>Crypto Asta</h1>
-        <div class="tagline">Driving Web3 Growth Through Community, Creativity, and Content</div>
-        <a href="resume.pdf" class="button" download>📄 Download Resume</a>
-    </header>
-    <main>
-        <section>
-            <h2>Contact</h2>
-            <p>📧 asta053006@gmail.com<br>
-               🐦 <a href="#" style="color:#00e0ff">@dvl_dweller</a><br>
-            </p>
-            <h2>Skills</h2>
-            <ul>
-                <li>Content Creation</li>
-                <li>Ambassador</li>
-            </ul>
-            <h2>Tools</h2>
-            <ul>
-                <li>Telegram, Discord, X (Twitter)</li>
-            </ul>
-        </section>
-        <section>
-            <h2>About Me</h2>
-            <p>I am a dedicated <strong>Web3 ambassador</strong>, and <strong>content creator</strong> with proven experience in growing online communities, driving brand visibility, and delivering impactful campaigns. Passionate about blockchain, gaming, and emerging digital innovations, I combine creativity and strategic thinking to connect people with meaningful Web3 opportunities.</p>
-            <h2>Experience</h2>
-            <ul>
-                <li><strong>Idle Glory(Ambassador)</strong> – Increased community engagement by 30% through interactive campaigns and events.</li>
-                <li><strong>Datagram(Ambassador)</strong> – Created promotional content boosting brand visibility in key Web3 communities.</li>
-                <li><strong>Gaming On Sei(Content Creator)</strong> – Produced game focused Web3 content attracting new audiences.</li>
-                <li><strong>Ronin(Content Creator)</strong> – Developed creative campaigns strengthening brand presence.</li>
-                <li><strong>Immutable(Content Creator)</strong> – Delivered high     quality content engaging Web3 gamers.</li>
-            </ul>
-            <h2>Achievements</h2>
-            <ul>
-        
-                <li>Drove strong engagement and growth through campaigns on X (Twitter).</li>
-                <li>Collaborated with various Web3 projects as ambassador, and content creator.</li>
-                <li>Supported early stage projects with moderation, and brand visibility efforts.</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        © 2025 Crypto Asta | Designed for Web3
-    </footer>
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="profile-image-wrapper">
+                <img src="kupal.jpg" alt="Crypto Asta"/>
+                <span class="status-badge">Available for Hire</span>
+            </div>
+            <h1>Crypto Asta</h1>
+            <div class="tagline"> Moderator | Ambassador | Content Creator</div>
+            <div class="cta-buttons">
+                <a href="resume.pdf" class="btn btn-primary" download>
+                    <svg class="icon" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h6v6h6v10H6z"/>
+                    </svg>
+                    Download Resume
+                </a>
+                <a href="mailto:asta053006@gmail.com" class="btn btn-secondary">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    Let's Connect
+                </a>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            <div>
+                <section>
+                    <h2>Contact</h2>
+                    <div class="contact-item">
+                        <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <a href="mailto:asta053006@gmail.com">asta053006@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        <a href="https://x.com/dvl_dweller" target="_blank">Crypto Asta</a>
+                    </div>
+                   <div class="contact-item">
+                        <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.691V11.01h3.13V8.309c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z"/>
+                        </svg>
+                        <a href="https://www.facebook.com/crypto.asta/" target="_blank">Crypto Asta</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <span>Manila, Philippines</span>
+                    </div>
+                </section>
+
+                <section style="margin-top: 2rem;">
+                    <h2>Core Skills</h2>
+                    <div>
+                        <span class="skill-tag">Content Creation</span>
+                        <span class="skill-tag">Discord Moderation</span>
+                        <span class="skill-tag">Web3 Gaming</span>
+                        <span class="skill-tag">Brand Ambassadorship</span>
+                    </div>
+                </section>
+
+                <section style="margin-top: 2rem;">
+                    <h2>Tech Stack</h2>
+                    <div>
+                        <span class="skill-tag">Telegram</span>
+                        <span class="skill-tag">Discord</span>
+                        <span class="skill-tag">X (Twitter)</span>
+                        <span class="skill-tag">Canva</span>
+                    </div>
+                </section>
+            </div>
+
+            <div>
+                <section>
+                    <h2>About Me</h2>
+                    <p>Results driven Web3 professional with a proven track record of building thriving communities and creating compelling content that drives engagement. I specialize in connecting blockchain projects with their target audiences through strategic campaigns, authentic community management, and high-impact content creation.</p>
+                    <p style="margin-top: 1rem;">With hands on experience across major Web3 gaming and blockchain platforms, I bring a unique blend of technical knowledge, creative storytelling, and community psychology to help projects achieve measurable growth.</p>
+                </section>
+
+                <section style="margin-top: 2rem;">
+                    <h2>Professional Experience</h2>
+                    
+                    <h3 style="color: #7c3aed; font-size: 1.1rem; margin-bottom: 1rem; margin-top: 0;">Community Management & Moderation</h3>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/1481486666020048899/O_Fypw7d_400x400.jpg" alt="Asian Fintech" class="project-logo">
+                            <strong>Asian Fintech</strong>
+                        </div>
+                        <p>Discord Moderator</p>
+                        <p>Maintained safe and engaging community environment for fintech-focused Web3 discussions. Enforced community guidelines, resolved conflicts, and facilitated meaningful conversations around blockchain finance and technology.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/1804150245275967488/K5Hz6c47_400x400.jpg" alt="Inner Circle" class="project-logo">
+                            <strong>Inner Circle</strong>
+                        </div>
+                        <p>Discord Moderator</p>
+                        <p>Managed exclusive community space ensuring high-quality interactions and member satisfaction. Coordinated with team leads on community initiatives and maintained active engagement across channels.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/1925475935773753344/m4Z53Ui8_400x400.jpg" alt="Idle Glory" class="project-logo">
+                            <strong>Idle Glory</strong>
+                        </div>
+                        <p>Community Ambassador</p>
+                        <p>Drove 30% increase in community engagement through innovative interactive campaigns, contests, and strategic event planning. Managed cross-platform community initiatives resulting in sustained growth.</p>
+                    </div>
+                    
+                    <h3 style="color: #7c3aed; font-size: 1.1rem; margin-bottom: 1rem; margin-top: 1.5rem;">Brand Ambassador & Partnerships</h3>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/1931701534271983616/IuGectir_400x400.jpg" alt="Datagram" class="project-logo">
+                            <strong>Datagram</strong>
+                        </div>
+                        <p>Ambassador</p>
+                        <p>Developed and executed promotional content strategies that significantly boosted brand visibility across key Web3 communities. Created targeted campaigns reaching thousands of potential users.</p>
+                    </div>
+                    
+                    <h3 style="color: #7c3aed; font-size: 1.1rem; margin-bottom: 1rem; margin-top: 1.5rem;">Content Creation & Marketing</h3>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/1954919981142999040/h0ZoXpc2_400x400.jpg" alt="Gaming On Sei" class="project-logo">
+                            <strong>Gaming On Sei</strong>
+                        </div>
+                        <p>Content Creator</p>
+                        <p>Produced engaging gaming-focused Web3 content that attracted new audiences and increased platform awareness. Specialized in bridging traditional gaming communities with blockchain technology.</p>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <img src="https://pbs.twimg.com/profile_images/2002130715899568128/WA27CyBF_400x400.jpg" alt="Ronin" class="project-logo">
+                            <strong>Ronin</strong>
+                        </div>
+                        <p>Content Creator</p>
+                        <p>Developed creative campaigns and high quality content that strengthened brand presence in the competitive Web3 gaming space. Successfully engaged diverse gaming communities across multiple platforms.</p>
+                    </div>
+                    <div class="experience-item">
+    <div class="experience-header">
+        <img src="https://pbs.twimg.com/profile_images/1894340023962800130/yAJxsR4W_400x400.jpg" alt="Immutable" class="project-logo">
+        <strong>Immutable</strong>
+    </div>
+    <p>Content Creator</p>
+    <p>
+        Created educational and campaign driven content focused on Immutable’s Web3 gaming ecosystem, including game explainers, campaign posts, and community focused threads on X. 
+        Translated complex blockchain and gaming concepts into clear, engaging content that boosted visibility, user understanding, and community engagement.
+    </p>
+</div>
+
+                </section>
+
+                
+            </div>
+        </div>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://x.com/dvl_dweller" class="social-icon" target="_blank" title="Twitter/X">
+                    <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="mailto:asta053006@gmail.com" class="social-icon" title="Email">
+                    <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="https://t.me/yourusername" class="social-icon" target="_blank" title="Telegram">
+                    <svg fill="currentColor" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-.99.53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.48 1.03-.73 4.04-1.76 6.73-2.92 8.07-3.48 3.84-1.59 4.64-1.87 5.16-1.87.11 0 .37.03.53.17.14.11.17.26.19.37-.01.06.01.24 0 .38z"/>
+                    </svg>
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem;">© 2025 Crypto Asta | Web3 Portfolio</p>
+        </footer>
+    </div>
 </body>
 </html>
-
-
-
