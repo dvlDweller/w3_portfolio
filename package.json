@@ -1,0 +1,14 @@
+{
+  "name": "my_web3_cv_ai",
+  "version": "1.0.0",
+  "description": "Local server for AI chatbot integration with Hugging Face inference.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.4"
+  }
+}
