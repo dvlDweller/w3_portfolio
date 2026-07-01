@@ -6,7 +6,470 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Crypto Asta — Web3 content creator, ambassador, moderator and game tester.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #050507;
+    --surface: rgba(20, 22, 32, 0.98);
+    --surface-soft: rgba(20, 22, 32, 0.85);
+    --accent: #d76b6b;
+    --accent-soft: rgba(215, 107, 107, 0.16);
+    --text: #f5f5f8;
+    --muted: #a5a5b0;
+    --border: rgba(255, 255, 255, 0.08);
+    --radius: 28px;
+    --transition: 0.35s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, rgba(215, 107, 107, 0.12), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.08), transparent 20%),
+        linear-gradient(180deg, #050507 0%, #08080b 100%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a,
+button {
+    color: inherit;
+    font: inherit;
+}
+
+::selection {
+    background: rgba(215, 107, 107, 0.35);
+    color: #fff;
+}
+
+header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    width: 100%;
+    padding: 1.6rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 12, 18, 0.78);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+nav a {
+    font-size: 1.4rem;
+    color: var(--muted);
+    transition: color var(--transition), transform var(--transition);
+    position: relative;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--text);
+}
+
+nav a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.8rem;
+    width: 100%;
+    height: 0.2rem;
+    border-radius: 999px;
+    background: var(--accent);
+}
+
+header a:focus-visible,
+.cta-btn:focus-visible,
+.contact-card:focus-visible {
+    outline: 3px solid rgba(215, 107, 107, 0.45);
+    outline-offset: 6px;
+}
+
+section {
+    padding: 10rem 6vw;
+    position: relative;
+}
+
+.hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    align-items: center;
+    gap: 4rem;
+    padding-top: 14rem;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(215, 107, 107, 0.14), transparent 25%),
+        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.06), transparent 18%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 62rem;
+}
+
+.hero-content h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(4.6rem, 6vw, 6.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.08em;
+    margin-bottom: 2rem;
+}
+
+.hero-content h1 span {
+    color: var(--accent);
+}
+
+.tagline {
+    display: inline-block;
+    font-size: 1.85rem;
+    color: var(--muted);
+    margin-bottom: 2.6rem;
+    max-width: 55ch;
+}
+
+.role-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.8rem;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.6rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-radius: 999px;
+    border: 1px solid rgba(215, 107, 107, 0.35);
+    background: rgba(215, 107, 107, 0.08);
+    color: var(--text);
+    transition: transform var(--transition), background var(--transition);
+}
+
+.pill:hover {
+    transform: translateY(-2px);
+    background: rgba(215, 107, 107, 0.18);
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 3rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #d76b6b 0%, #ff8e8e 100%);
+    color: #fff;
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 20px 55px rgba(215, 107, 107, 0.24);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 70px rgba(215, 107, 107, 0.28);
+}
+
+.hero-image {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 430px;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 32px 95px rgba(0, 0, 0, 0.35);
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(3.8rem, 4.5vw, 5.6rem);
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text);
+}
+
+.section-title span {
+    color: var(--accent);
+}
+
+.about {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about p {
+    color: var(--muted);
+    font-size: 1.7rem;
+    line-height: 1.85;
+    max-width: 70ch;
+    margin: 0 auto;
+}
+
+.skills-grid,
+.experience .experience-grid,
+.contact-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.4rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+    transition: transform var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(215, 107, 107, 0.45);
+}
+
+.skill-icon {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1.6rem;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: rgba(215, 107, 107, 0.12);
+    color: var(--accent);
+    font-size: 2.4rem;
+}
+
+.skill-header h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.skill-desc {
+    color: var(--muted);
+    font-size: 1.45rem;
+    line-height: 1.85;
+}
+
+.experience {
+    background: transparent;
+}
+
+.experience .experience-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1200px;
+    margin: 4rem auto 0;
+}
+
+.exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.2rem;
+    box-shadow: 0 22px 58px rgba(0, 0, 0, 0.22);
+    transition: transform var(--transition), border-color var(--transition);
+    text-align: center;
+}
+
+.exp-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(215, 107, 107, 0.45);
+}
+
+.exp-logo {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.4rem;
+}
+
+.exp-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+}
+
+.exp-role {
+    color: var(--muted);
+    font-size: 1.2rem;
+}
+
+.contact {
+    background: transparent;
+}
+
+.contact-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    max-width: 1120px;
+    margin: 3rem auto 0;
+}
+
+.contact-card {
+    background: rgba(18, 20, 30, 0.96);
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    padding: 2rem 1.6rem;
+    transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    min-height: 152px;
+}
+
+.contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(215, 107, 107, 0.45);
+    background: rgba(28, 30, 42, 0.98);
+}
+
+.contact-icon-large {
+    font-size: 2.6rem;
+    color: var(--accent);
+}
+
+.contact-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.contact-card p {
+    color: var(--muted);
+    min-height: 1.4rem;
+}
+
+footer {
+    padding: 4rem 6vw 5rem;
+    color: var(--muted);
+    font-size: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+footer p {
+    margin: 0.8rem 0;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #ffb2b2;
+}
+
+@media (max-width: 1024px) {
+    header {
+        padding: 1.4rem 5vw;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 12rem;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+
+    .hero-content {
+        text-align: center;
+        align-items: center;
+    }
+
+    .role-pills {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.4rem;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+
+    section {
+        padding: 8rem 4vw;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.6rem, 9vw, 4.8rem);
+    }
+
+    .tagline {
+        font-size: 1.55rem;
+    }
+
+    .section-title {
+        font-size: 3.6rem;
+    }
+
+    .skill-card,
+    .exp-card,
+    .contact-card {
+        padding: 2rem;
+    }
+}
+</style>
     <link rel="icon" href="images/kupal.jpg">
     <title>Crypto Asta - Web3 Professional</title>
 </head>
