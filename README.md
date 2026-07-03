@@ -23,6 +23,8 @@ https://cryptoasta.netlify.app/
 ## Purpose
 
 This portfolio was built to showcase my web development journey, technical skills, and projects.
+<img width="1254" height="1254" alt="project-1" src="https://github.com/user-attachments/assets/37d40dd8-b107-4a72-99f3-db98287f274c" />
+
 
 ## Author
 
